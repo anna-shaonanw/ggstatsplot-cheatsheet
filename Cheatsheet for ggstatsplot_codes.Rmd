@@ -1,0 +1,80 @@
+---
+title: "Cheatsheet for ggstatsplot"
+author: "BaochanJiang"
+date: "2022-11-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R package
+
+```{r}
+library(ggstatsplot)
+library(ggcorrplot)
+```
+
+## Function
+
+```{r}
+ggbetweenstats(
+  data  = PlantGrowth,
+  x     = group,
+  y     = weight,
+  plot.type = "boxviolin",
+  type = "parametric",
+  p.adjust.method = "holm",
+  title = "Distribution of plant weight across group"
+)
+```
+
+```{r}
+ggwithinstats(
+  data = iris,
+  x = Species,
+  y = Sepal.Length,
+  sort = "descending", 
+  sort.fun = median, 
+  pairwise.comparisons = TRUE,
+  title = "iris")
+```
+
+```{r}
+gghistostats(
+  data = movies_long,
+  x = budget,
+  normal.curve = TRUE,
+  normal.curve.args = list(color = "red", size = 1)
+)
+```
+```{r}
+ggdotplotstats(
+  data = ggplot2::mpg,
+  x = cty,
+  y = manufacturer,
+  title = "Fuel economy data",
+)
+```
+```{r}
+ggscatterstats( data = mtcars, x = hp, y = mpg,  xlab = "Gross horsepower", ylab = "Miles/(US) gallon", title = "Relationship between Gross horsepower and Miles/Gallon", marginal =FALSE)
+```
+```{r}
+ggcorrmat( data  = mtcars, cor.vars = c(mpg,cyl,hp,wt), title    = "Correlalogram for mtcars dataset", 
+ subtitle = "Miles/gallon; Number of cylinders; Gross horsepower; Weight (1000 lbs)")
+```
+```{r}
+ggpiestats( data   = mtcars, x  = vs, y  = gear, title= "Distribution of Engine in different gears", legend.title = "Engine")
+```
+
+```{r}
+ggbarstats( data = mtcars, x    = am, y  = cyl,title = "Transmission by Number of Cylinders", xlab = "Number of Cylinders", legend.title = "Transmission", palette = "Set2")
+```
+
+```{r}
+mod <- stats::lm(formula = mpg ~ hp * wt, data = mtcars)
+ggcoefstats( x = mod, title = "Regression model of miles/gallon on horsepower * weight" )
+```
+
+
